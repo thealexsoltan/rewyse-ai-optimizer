@@ -1,6 +1,6 @@
-# Rewyse AI — Claude Code Optimizer
+# Rewyse AI — Claude Optimizer
 
-What if 70% of what your AI agents do could run for free or at a fraction of the cost? The Claude Code Optimizer automatically routes every task to the cheapest model that can handle it. No configuration needed.
+What if 70% of what your AI agents do could run for free or at a fraction of the cost? The Claude Optimizer automatically routes every task to the cheapest model that can handle it. No configuration needed.
 
 ---
 
