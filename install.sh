@@ -47,6 +47,7 @@ fi
 
 # Create .optimizer directory in main repo
 mkdir -p "$PROJECT_ROOT/rewyse-ai/.optimizer/backups"
+mkdir -p "$PROJECT_ROOT/rewyse-ai/.optimizer/template-cache"
 echo -e "${GREEN}[ok]${NC} Created rewyse-ai/.optimizer/ directory"
 
 # Register slash commands in .claude/skills/
@@ -93,10 +94,20 @@ create_skill "optimize-help" \
   "argument-hint: [question]" \
   "Read and follow the full instructions in \`rewyse-ai-optimizer/optimize-help/SKILL.md\`.\n\nAlso read \`rewyse-ai-optimizer/optimize-help/reference.md\` for FAQ and troubleshooting."
 
+create_skill "cache-build" \
+  "Cache a completed build's proven artifacts (expert profile, blueprint, prompt) for reuse on future builds of the same product type." \
+  "argument-hint: [project-slug]" \
+  "Read and follow the full instructions in \`rewyse-ai-optimizer/cache-build/SKILL.md\`."
+
+create_skill "use-cache" \
+  "Check for cached templates from a previous build and apply them as starting points for a new build of the same product type." \
+  "argument-hint: [product-type]" \
+  "Read and follow the full instructions in \`rewyse-ai-optimizer/use-cache/SKILL.md\`."
+
 if [ "$SKILL_COUNT" -gt 0 ]; then
   echo -e "${GREEN}[ok]${NC} Registered $SKILL_COUNT new slash commands in .claude/skills/"
 else
-  echo -e "${GREEN}[ok]${NC} All 3 slash commands already registered"
+  echo -e "${GREEN}[ok]${NC} All 5 slash commands already registered"
 fi
 
 # Add registration to root CLAUDE.md
@@ -118,6 +129,8 @@ See `rewyse-ai-optimizer/CLAUDE.md` for full documentation.
 - `/optimize rollback` — Undo all optimizations
 - `/optimize-status` — Show active optimizations and savings
 - `/optimize-help` — Walkthrough, status, and troubleshooting
+- `/cache-build` — Cache a completed build's artifacts for future reuse
+- `/use-cache` — Reuse cached templates when starting a new build
 REGISTRATION
     echo -e "${GREEN}[ok]${NC} Added Optimizer registration to CLAUDE.md"
   fi
@@ -134,6 +147,8 @@ echo "  1. Run /optimize to scan and apply optimizations"
 echo "  2. Approve the plan"
 echo "  3. Every future build is now 30-50% cheaper"
 echo ""
-echo "  Check savings: /optimize-status"
-echo "  Need help: /optimize-help"
+echo "  Check savings:    /optimize-status"
+echo "  Need help:        /optimize-help"
+echo "  Cache a build:    /cache-build [slug]"
+echo "  Reuse templates:  /use-cache [product-type]"
 echo ""

@@ -26,6 +26,21 @@ cheaper models, and applies optimizations with backups and approval gates.
 **Description:** Support agent for the optimizer. Three modes:
 Guide (walkthrough), Status (dashboard), Troubleshoot (fix issues).
 
+### cache-build
+**Slash command:** `/cache-build`
+**Triggers:** "cache this build", "save build artifacts", "save templates from build",
+"cache expert profile", "store build for reuse", "save proven templates"
+**Description:** Caches a completed build's proven artifacts (expert profile, blueprint,
+generation prompt) for reuse on future builds of the same product type. Requires at
+least Phase 7 completed.
+
+### use-cache
+**Slash command:** `/use-cache`
+**Triggers:** "reuse templates", "use cached build", "start from template",
+"skip phases with cache", "use previous build templates", "check template cache"
+**Description:** Checks for cached templates from a previous build of the same product
+type and offers to apply them as starting points for Phases 3-5, with mandatory review.
+
 ## Prerequisites
 
 - Rewyse AI main pipeline installed (`rewyse-ai/` directory)
@@ -36,3 +51,5 @@ Guide (walkthrough), Status (dashboard), Troubleshoot (fix issues).
 2. Approve the plan
 3. Every future build is now 30-50% cheaper
 4. Run `/optimize-status` anytime to check savings
+5. After a successful build, run `/cache-build` to save artifacts for reuse
+6. Before a new build of the same type, run `/use-cache` to start from templates

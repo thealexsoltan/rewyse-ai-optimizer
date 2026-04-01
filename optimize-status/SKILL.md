@@ -66,9 +66,40 @@ Rollback available: /optimize rollback
 
 Populate every table dynamically from config.json. If a category has zero entries, show the header with "(0 files)" and skip the table.
 
+## Step 3: Template Cache
+
+After the optimization dashboard, check if any template caches exist.
+
+Scan `rewyse-ai/.optimizer/template-cache/` for subdirectories. For each directory,
+read `cache-meta.json` if it exists.
+
+If no caches exist, skip this section entirely.
+
+If caches exist, append a "Template Cache" section to the dashboard:
+
+```
+### Template Cache
+
+| Product Type | Source Build | Cached | Times Used |
+|-------------|-------------|--------|-----------|
+| {product_type} | {source_build} | {cached_at} | {times_used} |
+| ... | ... | ... | ... |
+
+Cache {type} templates: /use-cache {type}
+Add a new cache: /cache-build {slug}
+```
+
+For each cached product type, also show a one-line detail:
+- Phases cached (always expert-profile, content-blueprint, generation-prompt)
+- Whether a QA baseline exists
+- Original niche and entry count
+
+---
+
 ## Notes
 
 - Read-only — never modify any files
 - If `config.json` is missing, guide the user to run `/optimize`
 - Keep the dashboard concise and scannable
 - Pull all counts and file lists from config.json — never hardcode them
+- Pull template cache data from `template-cache/*/cache-meta.json` — never hardcode

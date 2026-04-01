@@ -118,6 +118,57 @@ Run `/optimize-status` to see all active optimizations at a glance. For cost ver
 
 ---
 
+## Template Cache (ReasoningBank)
+
+The template cache saves proven build artifacts so you can reuse them on future builds of the same product type. Instead of designing an expert profile, blueprint, and generation prompt from scratch every time, you start from a proven template and customize.
+
+### FAQ
+
+#### 13. What is the template cache?
+A storage system for proven build artifacts — expert profiles, content blueprints, and generation prompts — organized by product type. When you complete a build that produces good results, you cache those artifacts. Next time you build the same product type, you can start from those templates instead of from scratch, potentially skipping Phases 3-5.
+
+#### 14. How do I cache a build?
+Run `/cache-build` after completing a build (at least Phase 7). It reads the build's output files, extracts the reusable artifacts, and saves them to `rewyse-ai/.optimizer/template-cache/{product-type}/`. You can also pass the project slug directly: `/cache-build hyrox-recipes`.
+
+#### 15. How do I use cached templates?
+Run `/use-cache` before starting a new build (or at the start of one). It checks if a template cache exists for your product type and offers to copy the templates as starting points. You can reuse all three templates, pick selectively, or review each one before deciding.
+
+#### 16. Does it auto-apply templates?
+No. Templates are always presented for review. You must confirm or customize each template before it is used. The cache provides starting points, not final outputs. This is especially important when building for a different niche — the structural elements transfer, but niche-specific details need adjustment.
+
+#### 17. Can I cache multiple builds of the same type?
+Only one cache per product type. If you cache a second build of the same type, it replaces the previous cache (after asking for confirmation). This keeps the cache simple and ensures it always reflects your latest proven build.
+
+#### 18. What if my new niche is different from the cached one?
+Templates are structural, not content-specific. A recipe expert profile template has the right voice dimensions, vocabulary categories, and perspective framework whether the recipes are for athletes or vegans. You customize the niche-specific terms during the review step. The page structure, prompt architecture, and voice patterns are the reusable parts.
+
+#### 19. What gets cached exactly?
+Three required artifacts and two optional ones:
+- **Expert profile** — voice, tone, vocabulary, perspective (required)
+- **Content blueprint** — sections, word counts, formatting rules (required)
+- **Generation prompt** — the assembled prompt that passed testing (required)
+- **QA baseline** — issue counts from the last QA scan (optional, informational)
+- **Cache metadata** — product type, source build, date, usage count (auto-generated)
+
+#### 20. Where are cached templates stored?
+In `rewyse-ai/.optimizer/template-cache/{product-type}/`. Each product type gets its own subdirectory with the template files and a `cache-meta.json` metadata file.
+
+### Troubleshooting
+
+#### /cache-build says "build is incomplete"
+**Cause:** The build has not reached Phase 7 (content generation). The cache requires proof that the artifacts actually work together.
+**Fix:** Complete at least Phase 7 (generate content), then re-run `/cache-build`.
+
+#### /use-cache says "no cached templates"
+**Cause:** No build of this product type has been cached yet.
+**Fix:** Complete a build of this product type first, then run `/cache-build` to save the artifacts.
+
+#### Template doesn't fit my new niche
+**Cause:** The cached template contains niche-specific details from the original build.
+**Fix:** This is expected. During the review step, customize the voice, vocabulary, and examples for your new niche. The structural elements (section architecture, prompt framework, voice dimensions) should still be useful.
+
+---
+
 ## What Gets Optimized (and What Doesn't)
 
 ### Optimized (routed to cheaper models)
