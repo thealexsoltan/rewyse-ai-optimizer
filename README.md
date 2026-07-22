@@ -23,11 +23,11 @@ The optimizer figures out which tasks need the expensive brain and which don't. 
 
 **Requires:** Rewyse AI main pipeline already installed.
 
-```
-curl -s "https://rewyse-install.alexs-8cf.workers.dev/install-optimizer?key=YOUR_KEY"
+```bash
+git clone https://github.com/thealexsoltan/rewyse-ai-optimizer && bash rewyse-ai-optimizer/install.sh
 ```
 
-Then run the 2 commands it shows you.
+No access key needed — just paste and run (in the same project where `rewyse-ai/` is installed).
 
 ---
 
